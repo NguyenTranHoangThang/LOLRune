@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BuildController!{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-image: url("background.jpeg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        #content {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #myInput {
+            width: 50%;
+            padding: 10px;
+            border-radius: 5px;
+            border-style: outset;
+            font-weight: bold;
+        }
+
+        #myTable {
+            margin: 20px auto auto;
+            width: 90%;
+            border-collapse: collapse;
+            color : #c8aa6e;
+            background-color: rgba(0,0,0,0.3);
+        }
+        #myTable thead{
+            background-color: rgba(0,0,0,1);
+        }
+        #myTable td {
+            height: 50px;
+            vertical-align: center;
+        }
+        #myTable tr {
+            border-bottom: 1px #72561e solid;
+        }
+    </style>
+    <div id="content">
+        <div><img src="logo-crop.png" alt=""></div>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Enter Champion name">
+
+        <table id="myTable" style="display: none">
+            <thead>
+            <th><h3>Name</h3></th>
+            <th><h3>Rune</h3></th>
+            <th><h3>Skill</h3></th>
+            </thead>
+            <tbody>
+            {% for champ in champions %}
+
+
+                <tr>
+                    <td><h4>{{ champ["Name"] }}</h4></td>
+                    <td><img src="{{ champ["Rune"] }}" alt=""></td>
+                    <td><img src="Skill/{{ champ["Name"] }}.png" alt=""></td>
+                </tr>
+
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            if (filter === "") {
+                table.style.display = "none";
+            } else {
+                table.style.display = "table";
+            }
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                console.log(td);
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+{% endblock %}
+
