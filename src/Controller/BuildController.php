@@ -113,7 +113,7 @@ class BuildController extends AbstractController
      */
     public function index()
     {
-        $champions = $this->getAllChampions();
+        $champions = $this->getAllChampionFromCSV();
         return $this->render('build/index.html.twig', [
             'champions' => $champions,
         ]);
@@ -134,6 +134,7 @@ class BuildController extends AbstractController
         }
         dd("done");
     }
+
     /**
      * @Route("/skills", name="skills")
      */
@@ -148,5 +149,17 @@ class BuildController extends AbstractController
             $img->save($dest);
         }
         dd("done");
+    }
+    
+    public function getAllChampionFromCSV()
+    {
+        $file = fopen('champions.csv', 'r');
+        $data = [];
+        while (($line = fgetcsv($file)) !== FALSE) {
+            $temp = ["Name" => $line[0]];
+            $data[] = $temp;
+        }
+        fclose($file);
+        return $data;
     }
 }

@@ -105,6 +105,9 @@
     "php": {
         "version": "7.4"
     },
+    "php-webdriver/webdriver": {
+        "version": "1.8.2"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"
     },
